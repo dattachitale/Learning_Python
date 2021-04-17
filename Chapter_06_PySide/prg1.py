@@ -74,3 +74,89 @@ app = QtWidgets.QApplication(sys.argv)
 dialog = MyDialog('My Dialog')
 dialog.show()
 sys.exit(app.exec_())
+
+
+
+# Datta's code
+import sys
+import PySide2.QtWidgets as QtWidgets
+import PySide2.QtCore as QtCore
+
+class My_Main_Dialog(QtWidgets.QWidget):
+    def __init__(self,title):
+        super(My_Main_Dialog, self).__init__()
+        self.setWindowTitle(title)
+        self.setMinimumHeight(300)
+        self.setMinimumWidth(300)
+        self.create_widgets()
+        self.create_layout()
+
+    def create_widgets(self):
+        self.submit_button = QtWidgets.QPushButton('Submit')
+        self.submit_button.setMaximumWidth(100)
+        self.submit_button.setMaximumHeight(30)
+        self.cancel_button = QtWidgets.QPushButton('Cancel')
+        self.cancel_button.setMaximumWidth(100)
+        self.cancel_button.setMaximumHeight(30)
+
+
+    def create_layout(self):
+        main_layout = QtWidgets.QVBoxLayout()
+        self.setLayout(main_layout)
+        main_layout.setAlignment(QtCore.Qt.AlignBottom)
+
+        hbox_1 = QtWidgets.QHBoxLayout()
+        hbox_1.addWidget(self.submit_button)
+        hbox_1.addWidget(self.cancel_button)
+        main_layout.addLayout(hbox_1)
+
+        # Connections
+        self.submit_button.clicked.connect(self.Submit_fun)
+
+    def Submit_fun(self):
+        sms_dialogue =  My_sms_Dialog()
+        sms_dialogue.show()
+        sys.exit(sms_dialogue.exec_())
+
+
+'''Here is the second sms class declaration'''
+class My_sms_Dialog(QtWidgets.QWidget):
+    def __init__(self):
+        super(My_sms_Dialog, self).__init__()
+        #self.setWindowTitle(title)
+        self.setMinimumWidth(500)
+        self.setMaximumHeight(200)
+        self.sms_create_widgets()
+        self.sms_create_layout()
+
+
+    def sms_create_widgets(self):
+        self.sms_text = QtWidgets.QLabel("Hello, You have just pressed SUBMIT button")
+        self.sms_submit_button = QtWidgets.QPushButton("OK")
+        self.sms_submit_button.setMaximumWidth(100)
+        self.sms_submit_button.setMaximumHeight(30)
+
+
+    def sms_create_layout(self):
+        sms_main_layout = QtWidgets.QVBoxLayout()
+        self.setLayout(sms_main_layout)
+        sms_main_layout.setAlignment(QtCore.Qt.AlignCenter)
+
+        sms_hbox_1 = QtWidgets.QHBoxLayout()
+        sms_hbox_1.addWidget(self.sms_text)
+        sms_main_layout.addLayout(sms_hbox_1)
+
+        sms_hbox_2 = QtWidgets.QHBoxLayout()
+        sms_hbox_2.addWidget(self.sms_submit_button)
+        sms_main_layout.addLayout(sms_hbox_2)
+
+
+
+
+
+
+app = QtWidgets.QApplication(sys.argv)
+dialog = My_Main_Dialog('DATTA')
+dialog.show()
+sys.exit(app.exec_())
+
